@@ -8,5 +8,6 @@ public class WebMvnConfig {
     public void addVierController(ViewControllerRegistry registry) {
         registry.addViewController("/home").setViewName("home");
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/hello").setViewName("hello");
     }
 }
