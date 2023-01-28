@@ -8,5 +8,17 @@ spring:
     url: jdbc:h2:mem:testdb
     username: name
     password: password
+  h2:
+    console:
+      enabled: true
+  sql:
+    init:
+      mode: embedded
+  jackson:
+    serialization:
+      indent-output: true
+  thymeleaf:
+    enable: true
+
 
 

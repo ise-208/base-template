@@ -57,7 +57,13 @@ public class WebSecurityConfig {
                 .password(encoder.encode(""))
                 .roles("ADMIN")
                 .build();
-        return new InMemoryUserDetailsManager(user1, user2);
+
+        UserDetails user3 = User.withUsername("user3")
+                .password(encoder.encode(""))
+                .authorities("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(user1, user2, user3);
     }
 
     private String bcryptPasswordEncoder(String password) {
