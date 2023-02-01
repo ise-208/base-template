@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Configuration
+@EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
 
@@ -69,4 +70,5 @@ public class WebSecurityConfig {
     private String bcryptPasswordEncoder(String password) {
         return new BCryptPasswordEncoder().encode(password);
     }
+
 }
