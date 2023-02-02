@@ -16,6 +16,7 @@ public class WebController {
         modelAndView.setViewName("home");
         return modelAndView;
     }
+
     @RequestMapping("/login")
     public ModelAndView login(ModelAndView modelAndView) {
         modelAndView.setViewName("login");

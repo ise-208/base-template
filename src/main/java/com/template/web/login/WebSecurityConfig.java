@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,8 +24,9 @@ import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true)
+//@EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -48,6 +50,7 @@ public class WebSecurityConfig {
     @Bean
     public InMemoryUserDetailsManager userDetailsService(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//        auth.userDetailsService(userDetailsService);
         UserDetails user1 = User.withUsername("user1")
                 .password(encoder.encode(""))
                 .roles("USER")
@@ -71,4 +74,18 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder().encode(password);
     }
 
+    protected static class AuthenticationConfiguration
+            extends GlobalAuthenticationConfigurerAdapter {
+
+        @Autowired
+        UserDetailsService userDetailsService;
+        @Override
+        public void init(AuthenticationManagerBuilder auth) throws Exception {
+            // 認証するユーザーを設定する
+            auth.userDetailsService(userDetailsService)
+                    // 入力値をbcryptでハッシュ化した値でパスワード認証を行う
+                    .passwordEncoder(new BCryptPasswordEncoder());
+
+        }
+    }
 }

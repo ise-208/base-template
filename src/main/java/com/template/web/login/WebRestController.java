@@ -11,6 +11,7 @@ import java.net.http.HttpHeaders;
 
 
 @RestController
+@RequestMapping("/")
 public class WebRestController {
     private Logger  log = LoggerFactory.getLogger(WebController.class);
 
