@@ -1,19 +1,20 @@
 package com.template.web.login;
 
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class WebLoginService {
 
+    @Autowired
     WebLoginDao webLoginDao;
 
-    public WebLoginUser findOne(String username) throws Exception {
-        WebLoginUser webLoginUser = webLoginDao.findById(username).get(0);
+    public WebUser findOne(String id) throws Exception {
+        WebUser webUser = webLoginDao.findById(id).get(0);
 
-        if (webLoginUser == null) {
+        if (webUser == null) {
             throw new Exception();
         }
-        return webLoginUser;
+        return webUser;
     }
 }

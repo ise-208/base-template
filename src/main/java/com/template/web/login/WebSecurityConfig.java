@@ -24,9 +24,7 @@ import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
-//@EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,53 +37,42 @@ public class WebSecurityConfig {
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home")
+                        .loginProcessingUrl("/sign_in")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .successForwardUrl("/hello")
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll());
         return http.build();
     }
 
+//
+//    protected static class AuthenticationConfiguration
+//            extends GlobalAuthenticationConfigurerAdapter {
+//
+//        @Autowired
+//        UserDetailsService userDetailsService;
+//        @Override
+//        public void init(AuthenticationManagerBuilder auth) throws Exception {
+//            // 認証するユーザーを設定する
+//            auth.userDetailsService(userDetailsService)
+//                    // 入力値をbcryptでハッシュ化した値でパスワード認証を行う
+//                    .passwordEncoder(new BCryptPasswordEncoder());
+//
+//        }
+//    }
+
+
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService(AuthenticationManagerBuilder auth) throws Exception {
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//        auth.userDetailsService(userDetailsService);
-        UserDetails user1 = User.withUsername("user1")
-                .password(encoder.encode(""))
-                .roles("USER")
-                .build();
-
-
-        UserDetails user2 = User.withUsername("user2")
-                .password(encoder.encode(""))
-                .roles("ADMIN")
-                .build();
-
-        UserDetails user3 = User.withUsername("user3")
-                .password(encoder.encode(""))
-                .authorities("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user1, user2, user3);
+    public void userDetailsService(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("user").password("{noop}password").roles("USER");
     }
 
     private String bcryptPasswordEncoder(String password) {
         return new BCryptPasswordEncoder().encode(password);
     }
 
-    protected static class AuthenticationConfiguration
-            extends GlobalAuthenticationConfigurerAdapter {
 
-        @Autowired
-        UserDetailsService userDetailsService;
-        @Override
-        public void init(AuthenticationManagerBuilder auth) throws Exception {
-            // 認証するユーザーを設定する
-            auth.userDetailsService(userDetailsService)
-                    // 入力値をbcryptでハッシュ化した値でパスワード認証を行う
-                    .passwordEncoder(new BCryptPasswordEncoder());
-
-        }
-    }
 }
