@@ -1,5 +1,6 @@
 package com.template.web.login;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -7,20 +8,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Service
 public class WebLoginDetailService implements UserDetailsService {
+    @Autowired
     private WebLoginDao webLoginDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        WebLoginUser webLoginUser = webLoginDao.findById(username).get(0);
-        WebUser user = null;
+        WebUser user = webLoginDao.findById(username).get(0);
         try {
-//
+            System.out.println(username);
         } catch (Exception e){
             throw new UsernameNotFoundException("error");
         }

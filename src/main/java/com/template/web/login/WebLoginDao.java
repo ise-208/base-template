@@ -18,7 +18,7 @@ public class WebLoginDao {
     }
 
     public List<WebUser> findById (String id) {
-        String query = "SELECT * FROM user_history" + "WHERE id = " + id;
+        String query = "SELECT * FROM user_history " + "WHERE id = '" + id +"' ;";
         return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(WebUser.class));
     }
 }

@@ -1,21 +1,21 @@
 spring:
-  security:
-    user:
-      name: user1
-      password: password
-  datasource:
-    drive-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: name
   h2:
     console:
       enabled: true
+  datasource:
+    data-source-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: name
   sql:
     init:
       mode: embedded
   jackson:
     serialization:
       indent-output: true
+  security:
+    user:
+      name: user1
+      password: password
   thymeleaf:
     enable: true
 

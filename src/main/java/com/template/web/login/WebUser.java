@@ -14,17 +14,11 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "user")
+@Table(name = "user_history")
 public class WebUser implements User {
     String id;
     String name;
-    String email;
     String password;
-
-    public WebUser(){
-
-    }
-
 
     @Override
     public String getFullName() {
