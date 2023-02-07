@@ -13,7 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    @Autowired WebLoginDetailService userDetailsService;
+    @Autowired
+    WebLoginDetailService userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -32,10 +33,12 @@ public class WebSecurityConfig {
                         .successForwardUrl("/hello")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll());
+                .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/logout")
+                        .invalidateHttpSession(true));
         return http.build();
     }
-
 
 
     @Autowired

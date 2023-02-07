@@ -23,6 +23,12 @@ public class WebController {
         return modelAndView;
     }
 
+    @RequestMapping("/logout")
+    public ModelAndView logout(ModelAndView modelAndView) {
+        modelAndView.setViewName("logout");
+        return modelAndView;
+    }
+
     @RequestMapping("/hello")
     @Secured({"ROLE_USER"})
     public ModelAndView hello(ModelAndView modelAndView) {
