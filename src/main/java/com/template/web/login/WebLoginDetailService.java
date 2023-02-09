@@ -21,14 +21,15 @@ public class WebLoginDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        WebUser user = webLoginDao.findById(username).get(0);
+        WebUser user;
         try {
+            user = webLoginDao.findById(username).get(0);
             System.out.println(username);
         } catch (Exception e){
             throw new UsernameNotFoundException("error");
         }
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-        GrantedAuthority authority = new SimpleGrantedAuthority("USER");
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
         grantedAuthorities.add(authority);
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
