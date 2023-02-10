@@ -25,16 +25,16 @@ public class WebLoginDetailService implements UserDetailsService {
         try {
             user = webLoginDao.findById(username).get(0);
             System.out.println(username);
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+            GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
+            grantedAuthorities.add(authority);
+
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+            UserDetails userDetails = new User(user.getName(), encoder.encode(user.getPassword()),grantedAuthorities);
+            return userDetails;
         } catch (Exception e){
             throw new UsernameNotFoundException("error");
         }
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
-        grantedAuthorities.add(authority);
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-        UserDetails userDetails = new User(user.getName(), encoder.encode(user.getPassword()),grantedAuthorities);
-        return userDetails;
     }
 }

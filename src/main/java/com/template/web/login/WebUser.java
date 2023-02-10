@@ -19,6 +19,7 @@ public class WebUser implements User {
     String id;
     String name;
     String password;
+    String role;
 
     @Override
     public String getFullName() {
