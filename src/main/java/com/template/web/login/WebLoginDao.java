@@ -21,4 +21,12 @@ public class WebLoginDao {
         String query = "SELECT * FROM user_history " + "WHERE id = '" + id +"' ;";
         return jdbcTemplate.query(query, new BeanPropertyRowMapper<>(WebUser.class));
     }
+
+    public void createUser(){
+        String query = "INSERT INTO user_history(id, name, password, role) VALUES( 'user3', 'three', 'password', 'ROLE_ADMIN');";
+        jdbcTemplate.query(query, new BeanPropertyRowMapper<>(WebUser.class));
+
+        System.out.println(findById("user2"));
+        return;
+    }
 }

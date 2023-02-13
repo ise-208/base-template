@@ -13,6 +13,8 @@ import java.net.http.HttpHeaders;
 @RestController
 @RequestMapping("/")
 public class WebRestController {
+
+    WebLoginDao webLoginDao;
     private Logger  log = LoggerFactory.getLogger(WebController.class);
 
     private HttpHeaders createHeader(){return null;}
@@ -20,5 +22,11 @@ public class WebRestController {
     @RequestMapping("/example")
     public String example(ModelAndView modelAndView){
         return "example";
+    }
+
+    @RequestMapping("/create")
+    public void create(ModelAndView modelAndView){
+        webLoginDao.createUser();
+        return;
     }
 }
