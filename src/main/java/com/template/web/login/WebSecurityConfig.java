@@ -1,6 +1,7 @@
 package com.template.web.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,7 +21,9 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "home")
+                        .requestMatchers("/", "/home", "/h2-console/**")
+                        .permitAll()
+                        .requestMatchers(PathRequest.toH2Console())
                         .permitAll()
                         .anyRequest()
                         .authenticated()
