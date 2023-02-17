@@ -2,11 +2,12 @@ package com.template.web.login;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.*;
 import java.net.http.HttpHeaders;
 
 
@@ -14,7 +15,10 @@ import java.net.http.HttpHeaders;
 @RequestMapping("/")
 public class WebRestController {
 
-    WebLoginDao webLoginDao;
+    @Autowired
+    private AccountRepository repository;
+
+    WebDao webDao;
     private Logger  log = LoggerFactory.getLogger(WebController.class);
 
     private HttpHeaders createHeader(){return null;}
@@ -24,9 +28,9 @@ public class WebRestController {
         return "example";
     }
 
-    @RequestMapping("/create")
-    public void create(ModelAndView modelAndView){
-        webLoginDao.createUser();
+    @PostMapping("/create")
+    public void create(WebUser webUser){
+        repository.save(webUser);
         return;
     }
 }

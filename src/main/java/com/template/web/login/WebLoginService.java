@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 public class WebLoginService {
 
     @Autowired
-    WebLoginDao webLoginDao;
+    WebDao webDao;
 
     public WebUser findOne(String id) throws Exception {
-        WebUser webUser = webLoginDao.findById(id).get(0);
+        WebUser webUser = webDao.findById(id).get(0);
 
         if (webUser == null) {
             throw new Exception();

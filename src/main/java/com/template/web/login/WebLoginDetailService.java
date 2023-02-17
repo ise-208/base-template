@@ -17,13 +17,13 @@ import java.util.List;
 @Service
 public class WebLoginDetailService implements UserDetailsService {
     @Autowired
-    private WebLoginDao webLoginDao;
+    private WebDao webDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         WebUser user;
         try {
-            user = webLoginDao.findById(username).get(0);
+            user = webDao.findById(username).get(0);
             System.out.println(username);
             List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
             GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());

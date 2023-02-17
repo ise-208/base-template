@@ -1,7 +1,5 @@
 package com.template.web.login;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,11 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class WebLoginDao {
+public class WebDao {
     private JdbcTemplate jdbcTemplate;
 
 
-    public WebLoginDao(JdbcTemplate jdbcTemplate) {
+    public WebDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
