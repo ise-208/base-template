@@ -3,18 +3,12 @@ package com.template.web.login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class WebLoginService {
+import java.util.List;
 
-    @Autowired
-    WebDao webDao;
+public interface WebLoginService {
+    void saveUser(UserDto userDto);
 
-    public WebUser findOne(String id) throws Exception {
-        WebUser webUser = webDao.findById(id).get(0);
+    WebUser findUserById(String id);
 
-        if (webUser == null) {
-            throw new Exception();
-        }
-        return webUser;
-    }
+    List<UserDto> findAllUsers();
 }

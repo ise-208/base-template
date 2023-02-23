@@ -16,7 +16,7 @@ import java.net.http.HttpHeaders;
 public class WebRestController {
 
     @Autowired
-    private AccountRepository repository;
+    private UserRepository repository;
 
     WebDao webDao;
     private Logger  log = LoggerFactory.getLogger(WebController.class);

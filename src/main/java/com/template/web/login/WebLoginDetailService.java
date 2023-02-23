@@ -11,7 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -19,22 +21,30 @@ public class WebLoginDetailService implements UserDetailsService {
     @Autowired
     private WebDao webDao;
 
+    @Autowired
+    private UserRepository repository;
+
+    public WebLoginDetailService(UserRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        WebUser user;
-        try {
-            user = webDao.findById(username).get(0);
-            System.out.println(username);
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-            GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
-            grantedAuthorities.add(authority);
-
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-            UserDetails userDetails = new User(user.getName(), encoder.encode(user.getPassword()),grantedAuthorities);
-            return userDetails;
-        } catch (Exception e){
-            throw new UsernameNotFoundException("error");
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        WebUser user = repository.findById(id);
+        if (id == null || "".equals(id)) {
+            throw new UsernameNotFoundException("Username is empty");
         }
+        if (user == null){
+            throw new UsernameNotFoundException("User not found");
+        } else {
+            return new User(user.getId(), user.getPassword(), mapRolesToAuth(user.getRoles()));
+        }
+    }
+
+    private Collection < ? extends GrantedAuthority> mapRolesToAuth(Collection <WebRole> roles) {
+        Collection < ? extends GrantedAuthority> mapRoles = roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
+        return mapRoles;
     }
 }

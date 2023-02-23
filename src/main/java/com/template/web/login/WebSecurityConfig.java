@@ -21,10 +21,9 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/h2-console/**")
-                        .permitAll()
-                        .requestMatchers(PathRequest.toH2Console())
-                        .permitAll()
+                        .requestMatchers("/", "/home", "/h2-console/**").permitAll()
+                        .requestMatchers(PathRequest.toH2Console()).permitAll()
+                        .requestMatchers("/register/**").permitAll()
                         .anyRequest()
                         .authenticated()
                 )
