@@ -1,6 +1,6 @@
 package com.template.web.login;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
 public class WebController {
 
+    @Autowired
     private WebLoginService webLoginService;
 
     public WebController(WebLoginService webLoginService) {
@@ -50,7 +50,7 @@ public class WebController {
     }
 
     @GetMapping("/register")
-    public String registrationForm(Model model){
+    public String registrationForm(Model model) {
         UserDto userDto = new UserDto();
         model.addAttribute("user", userDto);
         return "register";
@@ -66,12 +66,11 @@ public class WebController {
     }
 
     @GetMapping("/users")
-    public String users(Model model){
+    public String users(Model model) {
         List<UserDto> users = webLoginService.findAllUsers();
         model.addAttribute("users", users);
         return "users";
     }
-
 
 
 }

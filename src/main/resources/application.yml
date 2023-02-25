@@ -18,6 +18,9 @@ spring:
       password: password
   thymeleaf:
     enable: true
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 
 

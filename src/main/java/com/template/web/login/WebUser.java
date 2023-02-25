@@ -1,31 +1,28 @@
 package com.template.web.login;
 
-import lombok.*;
-import org.apache.catalina.Group;
-import org.apache.catalina.Role;
-import org.apache.catalina.User;
-import org.apache.catalina.UserDatabase;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "user_history")
-class WebUser {
+public class WebUser {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     String id;
     String name;
     String password;
-    private List<Role> roles = new ArrayList<>();
+    private List<WebRole> roles = new ArrayList<>();
 
 }

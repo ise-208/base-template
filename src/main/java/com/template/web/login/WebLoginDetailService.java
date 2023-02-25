@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 @Service
 public class WebLoginDetailService implements UserDetailsService {
     @Autowired
-    private WebDao webDao;
-
-    @Autowired
     private UserRepository repository;
 
     public WebLoginDetailService(UserRepository repository) {

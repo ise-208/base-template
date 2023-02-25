@@ -14,7 +14,9 @@ public class WebLoginServiceImpl implements WebLoginService{
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
-    public WebLoginServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public WebLoginServiceImpl(UserRepository userRepository,
+                               RoleRepository roleRepository,
+                               PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -31,7 +33,7 @@ public class WebLoginServiceImpl implements WebLoginService{
         if (role == null){
             role = null;
         }
-        user.setRole(Arrays.asList(role));
+        user.setRoles(Arrays.asList(role));
         userRepository.save(user);
 
     }
@@ -46,7 +48,7 @@ public class WebLoginServiceImpl implements WebLoginService{
         List<WebUser> users = userRepository.findAll();
         return users
                 .stream()
-                .map((user) -> mapToUserDto(user))
+                .map(this::mapToUserDto)
                 .collect(Collectors.toList());
     }
 
