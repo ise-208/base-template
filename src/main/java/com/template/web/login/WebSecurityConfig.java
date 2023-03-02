@@ -42,7 +42,6 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-
     @Autowired
     public void config(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());

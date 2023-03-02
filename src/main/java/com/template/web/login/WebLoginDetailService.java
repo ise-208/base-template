@@ -19,29 +19,29 @@ import java.util.stream.Collectors;
 @Service
 public class WebLoginDetailService implements UserDetailsService {
     @Autowired
-    private UserRepository repository;
-
-    public WebLoginDetailService(UserRepository repository) {
-        this.repository = repository;
+    private UserRepository userRepository;
+    public WebLoginDetailService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        WebUser user = repository.findById(id);
+        WebUser user = userRepository.findById(id);
         if (id == null || "".equals(id)) {
             throw new UsernameNotFoundException("Username is empty");
         }
         if (user == null){
             throw new UsernameNotFoundException("User not found");
         } else {
-            return new User(user.getId(), user.getPassword(), mapRolesToAuth(user.getRoles()));
-        }
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+            GrantedAuthority authority = new SimpleGrantedAuthority("USER");
+            grantedAuthorities.add(authority);
+
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+            UserDetails userDetails = new User(user.getName(), encoder.encode(user.getPassword()),grantedAuthorities);
+            System.out.println(userDetails.toString());
+            return userDetails;        }
     }
 
-    private Collection < ? extends GrantedAuthority> mapRolesToAuth(Collection <WebRole> roles) {
-        Collection < ? extends GrantedAuthority> mapRoles = roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
-        return mapRoles;
-    }
 }

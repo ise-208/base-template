@@ -1,14 +1,11 @@
 package com.template.web.login;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +13,37 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_history")
+@Entity
+@Table(name="user_history")
 public class WebUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     String id;
     String name;
     String password;
-    private List<WebRole> roles = new ArrayList<>();
+//    private List<WebRole> roles = new ArrayList<>();
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 }
