@@ -18,7 +18,6 @@ public class WebRestController {
     @Autowired
     private UserRepository repository;
 
-    WebDao webDao;
     private Logger  log = LoggerFactory.getLogger(WebController.class);
 
     private HttpHeaders createHeader(){return null;}
@@ -28,9 +27,4 @@ public class WebRestController {
         return "example";
     }
 
-    @PostMapping("/create")
-    public void create(WebUser webUser){
-        repository.save(webUser);
-        return;
-    }
 }
