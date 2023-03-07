@@ -11,22 +11,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
 public class WebLoginDetailService implements UserDetailsService {
     @Autowired
-    private UserRepository userRepository;
-    public WebLoginDetailService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private WebUserRepository webUserRepository;
+    public WebLoginDetailService(WebUserRepository webUserRepository) {
+        this.webUserRepository = webUserRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        WebUser user = userRepository.findById(id);
+        WebUser user = webUserRepository.findById(id);
         if (id == null || "".equals(id)) {
             throw new UsernameNotFoundException("Username is empty");
         }
@@ -36,12 +34,9 @@ public class WebLoginDetailService implements UserDetailsService {
             List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
             GrantedAuthority authority = new SimpleGrantedAuthority("USER");
             grantedAuthorities.add(authority);
-
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-            UserDetails userDetails = new User(user.getName(), encoder.encode(user.getPassword()),grantedAuthorities);
-            System.out.println(userDetails.toString());
-            return userDetails;        }
+            return new User(user.getName(), encoder.encode(user.getPassword()),grantedAuthorities);
+        }
     }
 
 }

@@ -18,10 +18,13 @@ import java.util.List;
 public class WebController {
 
     @Autowired
-    private WebLoginService webLoginService;
+    private WebRegistry webRegistry;
 
-    public WebController(WebLoginService webLoginService) {
-        this.webLoginService = webLoginService;
+    @Autowired
+    private WebUserRepository userRepository;
+
+    public WebController(WebRegistry webRegistry) {
+        this.webRegistry = webRegistry;
     }
 
     @RequestMapping("/home")
@@ -60,14 +63,14 @@ public class WebController {
     public String registration(@Validated @ModelAttribute("user") UserDto userDto,
                                BindingResult result,
                                Model model) {
-        WebUser user = webLoginService.findUserById(userDto.getId());
-        webLoginService.saveUser(userDto);
+        WebUser user = userRepository.findById(userDto.getId());
+        webRegistry.saveUser(userDto);
         return "redirect:/register?success";
     }
 
     @GetMapping("/users")
     public String users(Model model) {
-        List<UserDto> users = webLoginService.findAllUsers();
+        List<UserDto> users = webRegistry.findAllUsers();
         model.addAttribute("users", users);
         return "users";
     }

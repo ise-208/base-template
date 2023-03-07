@@ -1,39 +1,32 @@
 package com.template.web.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class WebLoginServiceImpl implements WebLoginService {
+public class WebRegistryImpl implements WebRegistry {
     @Autowired
-    private UserRepository userRepository;
+    private WebUserRepository webUserRepository;
 
-    public WebLoginServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public WebRegistryImpl(WebUserRepository webUserRepository) {
+        this.webUserRepository = webUserRepository;
     }
 
     @Override
     public void saveUser(UserDto userDto) {
         WebUser user = new WebUser();
         user.setName(userDto.getFirstName() + " " + userDto.getLastName());
-        userRepository.save(user);
+        webUserRepository.save(user);
 
     }
 
-    @Override
-    public WebUser findUserById(String id) {
-        return userRepository.findById(id);
-    }
 
     @Override
     public List<UserDto> findAllUsers() {
-        List<WebUser> users = userRepository.findAll();
+        List<WebUser> users = webUserRepository.findAll();
         return users
                 .stream()
                 .map(this::mapToUserDto)

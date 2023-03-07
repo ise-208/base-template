@@ -1,4 +1,4 @@
-CREATE TABLE user_history(
+CREATE TABLE users(
     id varchar(30),
     name varchar(30),
     password varchar(120),

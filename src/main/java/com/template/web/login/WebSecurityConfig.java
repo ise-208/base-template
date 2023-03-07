@@ -29,7 +29,7 @@ public class WebSecurityConfig {
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/sign_in")
+//                        .loginProcessingUrl("/sign_in")
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .successForwardUrl("/hello")

@@ -14,13 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="user_history")
+@Table(name="users")
 public class WebUser {
     @Id
     String id;
     String name;
     String password;
-//    private List<WebRole> roles = new ArrayList<>();
+    String role;
 
     public String getId() {
         return id;
@@ -46,4 +46,11 @@ public class WebUser {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
