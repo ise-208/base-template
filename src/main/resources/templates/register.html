@@ -8,7 +8,7 @@
 <h1>ユーザー新規登録</h1>
 <form th:action="@{/create}" th:object="${userRequest}" th:method="post">
     <div>
-        <label>name: <span class="text-danger">*</span></label>
+        <label>name: <span class="text-danger"></label>
         <input type="text" name="username">
     </div>
     <div>
