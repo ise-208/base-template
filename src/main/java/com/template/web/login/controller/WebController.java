@@ -1,5 +1,9 @@
-package com.template.web.login;
+package com.template.web.login.controller;
 
+import com.template.web.login.repository.WebRegistry;
+import com.template.web.login.entity.WebUser;
+import com.template.web.login.repository.WebUserRepository;
+import com.template.web.login.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;

@@ -1,7 +1,7 @@
-package com.template.web.login;
+package com.template.web.login.repository;
 
+import com.template.web.login.entity.WebUser;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 public interface WebUserRepository extends JpaRepository<WebUser, Long> {
     WebUser findById(String id);

@@ -1,4 +1,4 @@
-package com.template.web.login;
+package com.template.web.login.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

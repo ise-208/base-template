@@ -1,4 +1,4 @@
-package com.template.web.login;
+package com.template.web.login.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

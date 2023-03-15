@@ -1,4 +1,6 @@
-package com.template.web.login;
+package com.template.web.login.repository;
+
+import com.template.web.login.dto.UserDto;
 
 import java.util.List;
 

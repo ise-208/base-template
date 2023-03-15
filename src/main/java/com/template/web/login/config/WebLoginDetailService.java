@@ -1,5 +1,7 @@
-package com.template.web.login;
+package com.template.web.login.config;
 
+import com.template.web.login.entity.WebUser;
+import com.template.web.login.repository.WebUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
