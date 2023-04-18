@@ -1,6 +1,6 @@
 package com.template.web.login.controller;
 
-import com.template.web.login.repository.WebUserRepository;
+import com.template.web.login.repository.WebUserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.net.http.HttpHeaders;
 public class WebRestController {
 
     @Autowired
-    private WebUserRepository repository;
+    private WebUserMapper repository;
 
     private Logger  log = LoggerFactory.getLogger(WebController.class);
 

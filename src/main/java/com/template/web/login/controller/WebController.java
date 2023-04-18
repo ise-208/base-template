@@ -1,8 +1,7 @@
 package com.template.web.login.controller;
 
-import com.template.web.login.repository.WebRegistry;
-import com.template.web.login.entity.WebUser;
-import com.template.web.login.repository.WebUserRepository;
+import com.template.web.login.entity.User;
+import com.template.web.login.repository.WebUserMapper;
 import com.template.web.login.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -22,13 +21,13 @@ import java.util.List;
 public class WebController {
 
     @Autowired
-    private WebRegistry webRegistry;
+    private WebUserMapper webUserMapper;
 
     @Autowired
-    private WebUserRepository userRepository;
+    private WebUserMapper userRepository;
 
-    public WebController(WebRegistry webRegistry) {
-        this.webRegistry = webRegistry;
+    public WebController(WebUserMapper webUserMapper) {
+        this.webUserMapper = webUserMapper;
     }
 
     @RequestMapping("/home")
@@ -67,14 +66,14 @@ public class WebController {
     public String registration(@Validated @ModelAttribute("user") UserDto userDto,
                                BindingResult result,
                                Model model) {
-        WebUser user = userRepository.findById(userDto.getId());
-        webRegistry.saveUser(userDto);
+        User user = userRepository.findById(userDto.getId());
+        webUserMapper.saveUser(userDto);
         return "redirect:/register?success";
     }
 
     @GetMapping("/users")
     public String users(Model model) {
-        List<UserDto> users = webRegistry.findAllUsers();
+        List<UserDto> users = webUserMapper.findAllUsers();
         model.addAttribute("users", users);
         return "users";
     }

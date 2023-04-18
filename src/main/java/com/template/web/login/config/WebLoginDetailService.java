@@ -1,11 +1,10 @@
 package com.template.web.login.config;
 
-import com.template.web.login.entity.WebUser;
-import com.template.web.login.repository.WebUserRepository;
+import com.template.web.login.entity.User;
+import com.template.web.login.repository.WebUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,14 +18,14 @@ import java.util.List;
 @Service
 public class WebLoginDetailService implements UserDetailsService {
     @Autowired
-    private WebUserRepository webUserRepository;
-    public WebLoginDetailService(WebUserRepository webUserRepository) {
-        this.webUserRepository = webUserRepository;
+    private WebUserMapper webUserMapper;
+    public WebLoginDetailService(WebUserMapper webUserMapper) {
+        this.webUserMapper = webUserMapper;
     }
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        WebUser user = webUserRepository.findById(id);
+        User user = webUserMapper.findById(id);
         if (id == null || "".equals(id)) {
             throw new UsernameNotFoundException("Username is empty");
         }
@@ -37,7 +36,7 @@ public class WebLoginDetailService implements UserDetailsService {
             GrantedAuthority authority = new SimpleGrantedAuthority("USER");
             grantedAuthorities.add(authority);
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            return new User(user.getName(), encoder.encode(user.getPassword()),grantedAuthorities);
+            return new org.springframework.security.core.userdetails.User(user.getName(), encoder.encode(user.getPassword()),grantedAuthorities);
         }
     }
 
