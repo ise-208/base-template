@@ -5,25 +5,18 @@ spring:
   sql:
     init:
       mode: embedded
-  jackson:
-    serialization:
-      indent-output: true
   security:
     user:
       name: user1
       password: password
   thymeleaf:
     enable: true
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: validate
   datasource:
     driverClassName: org.h2.Driver
     url: jdbc:h2:mem:testdb
     username: sa
-logging:
-  level:
-    org:
-      springframework: DEBUG
+#logging:
+#  level:
+#    org:
+#      springframework: DEBUG
+

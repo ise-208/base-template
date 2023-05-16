@@ -19,25 +19,24 @@ import java.util.List;
 public class WebLoginDetailService implements UserDetailsService {
     @Autowired
     private WebUserMapper webUserMapper;
-    public WebLoginDetailService(WebUserMapper webUserMapper) {
-        this.webUserMapper = webUserMapper;
-    }
 
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String id) {
         User user = webUserMapper.findById(id);
-        if (id == null || "".equals(id)) {
-            throw new UsernameNotFoundException("Username is empty");
-        }
-        if (user == null){
-            throw new UsernameNotFoundException("User not found");
-        } else {
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-            GrantedAuthority authority = new SimpleGrantedAuthority("USER");
-            grantedAuthorities.add(authority);
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            return new org.springframework.security.core.userdetails.User(user.getName(), encoder.encode(user.getPassword()),grantedAuthorities);
-        }
+
+        return user;
+//        if (id == null || "".equals(id)) {
+//            throw new UsernameNotFoundException("Username is empty");
+//        }
+//        if (user == null){
+//            throw new UsernameNotFoundException("User not found");
+//        } else {
+//            List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+//            GrantedAuthority authority = new SimpleGrantedAuthority("USER");
+//            grantedAuthorities.add(authority);
+//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//            return new org.springframework.security.core.userdetails.User(user.getName(), encoder.encode(user.getPassword()),grantedAuthorities);
+//        }
     }
 
 }
