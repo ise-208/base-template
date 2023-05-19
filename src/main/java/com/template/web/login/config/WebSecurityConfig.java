@@ -9,14 +9,12 @@ import org.springframework.security.config.annotation.authentication.configurers
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 public class WebSecurityConfig {
-
-    @Autowired
-    private WebLoginDetailService userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -43,14 +41,12 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-//    @Bean
-//    public DaoAuthenticationConfigurer<AuthenticationManagerBuilder, WebLoginDetailService> config(AuthenticationManagerBuilder auth) throws Exception {
-//        return auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//    }
+
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+    PasswordEncoder passwordEncoder() {
+        Pbkdf2PasswordEncoder passwordEncoder = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+        passwordEncoder.setEncodeHashAsBase64(true);
+        return passwordEncoder;
     }
 }
