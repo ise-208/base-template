@@ -1,4 +1,4 @@
-package com.template.web.login.config;
+package com.template.web.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

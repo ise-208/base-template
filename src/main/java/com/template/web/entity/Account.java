@@ -1,4 +1,4 @@
-package com.template.web.login.entity;
+package com.template.web.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

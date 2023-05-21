@@ -1,4 +1,4 @@
-package com.template.web.login.controller;
+package com.template.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -12,11 +12,6 @@ import java.util.List;
 
 @Controller
 public class WebController {
-//    private final WebUserMapper webUserMapper;
-//    public WebController(WebUserMapper webUserMapper) {
-//        this.webUserMapper = webUserMapper;
-//    }
-
     @RequestMapping("/home")
     public ModelAndView home(ModelAndView modelAndView) {
         modelAndView.setViewName("home");
@@ -34,10 +29,9 @@ public class WebController {
         return modelAndView;
     }
 
-    @RequestMapping("/hello")
-    @Secured({"ROLE_USER"})
-    public ModelAndView hello(ModelAndView modelAndView) {
-        modelAndView.setViewName("hello");
-        return modelAndView;
+    @GetMapping("/general")
+    public String general(){
+        return "general";
     }
+
 }
