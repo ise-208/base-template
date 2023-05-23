@@ -12,24 +12,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class WebLoginDetailService implements UserDetailsService {
 
-    private WebUserMapperRepository webUserMapperRepository;
-
-    public WebLoginDetailService(WebUserMapperRepository webUserMapperRepository) {
-        this.webUserMapperRepository = webUserMapperRepository;
-    }
+//    private WebUserMapperRepository webUserMapperRepository;
+//
+//    public WebLoginDetailService(WebUserMapperRepository webUserMapperRepository) {
+//        this.webUserMapperRepository = webUserMapperRepository;
+//    }
 
     @Override
     public UserDetails loadUserByUsername(String id) {
-//        Account account = webUserMapperRepository.findById(id);
+        User user = null;
+//        Account account = webUserMapperRepository.findById(user);
         Account account = new Account();
         account.setId("user1");
         account.setName("one");
-        account.setPassword("password");
-        account.setRole("ROLE_USER");
-        return User.withUsername(account.getUsername())
+        account.setPassword("$2a$10$BFl0n4z3qxtTEWQcU2qMRuAqDO/qA3vP5cpa5lUBn76KWdsowFk66");
+        account.setRole("USER");
+
+        return User.withUsername(account.getId())
                 .password(account.getPassword())
                 .roles(account.getRole())
-                .disabled(!account.isEnabled())
                 .build();
     }
 

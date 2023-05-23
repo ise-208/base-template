@@ -6,16 +6,15 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
-public class WebUserMapperRepository {
+public interface WebUserMapperRepository {
     //    public Collection<User> findAll();
     @Select("select * from users where id = #{id}")
-    Account findById(String id) {
-        return null;
-    }
+    Account findById(User user);
 
 //    public void create(User user);
 //    public void saveUser(User user);

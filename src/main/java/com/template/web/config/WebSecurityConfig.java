@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -27,8 +28,6 @@ public class WebSecurityConfig {
                 .formLogin(form -> form
                                 .loginProcessingUrl("/login")
                                 .loginPage("/login")
-                                .usernameParameter("username")
-                                .passwordParameter("password")
                                 .successForwardUrl("/hello")
                                 .permitAll()
                 )
@@ -41,8 +40,8 @@ public class WebSecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        Pbkdf2PasswordEncoder passwordEncoder = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
-        passwordEncoder.setEncodeHashAsBase64(true);
-        return passwordEncoder;
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        System.out.println(encoder.encode("password"));
+        return encoder;
     }
 }
