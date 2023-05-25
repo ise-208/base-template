@@ -24,6 +24,7 @@ public class WebController {
         return "login";
     }
 
+
     @RequestMapping("/logout")
     public ModelAndView logout(ModelAndView modelAndView) {
         modelAndView.setViewName("logout");
